@@ -1,9 +1,29 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calendar, Clock, Users, Phone, Mail, User } from "lucide-react";
+
+const fadeInRight: Variants = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }
+};
+
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
+};
+
+const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
+};
 
 const Reservations = () => {
   const ref = useRef(null);
@@ -19,7 +39,6 @@ const Reservations = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Reservation submitted:", formData);
     alert("Thank you! Your reservation request has been received. We will contact you shortly.");
   };
@@ -37,55 +56,69 @@ const Reservations = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            variants={staggerContainer}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
           >
-            <span className="text-gold text-sm uppercase tracking-[0.3em] font-sans mb-4 block">
+            <motion.span variants={fadeInUp} className="text-gold text-sm uppercase tracking-[0.3em] font-sans mb-4 block">
               Reserve Your Table
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-cream mb-6">
+            </motion.span>
+            <motion.h2 variants={fadeInUp} className="font-serif text-4xl md:text-5xl lg:text-6xl text-cream mb-6">
               Book Your Experience
-            </h2>
-            <div className="w-16 h-[2px] bg-gold mb-8" />
-            <p className="text-cream/80 text-lg leading-relaxed mb-8">
+            </motion.h2>
+            <motion.div variants={fadeInUp} className="w-16 h-[2px] bg-gold mb-8" />
+            <motion.p variants={fadeInUp} className="text-cream/80 text-lg leading-relaxed mb-8">
               We invite you to join us for an unforgettable culinary journey. 
               Reserve your table and let us create a memorable dining experience 
               tailored just for you.
-            </p>
+            </motion.p>
             
             {/* Info Cards */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="bg-burgundy-dark/50 p-6 border border-cream/10">
+            <motion.div 
+              variants={staggerContainer}
+              className="grid sm:grid-cols-2 gap-4"
+            >
+              <motion.div variants={cardReveal} className="bg-burgundy-dark/50 p-6 border border-cream/10">
                 <Clock className="text-gold mb-3" size={28} />
                 <h4 className="font-serif text-lg text-cream mb-2">Opening Hours</h4>
                 <p className="text-cream/70 text-sm">
                   Tue - Sun: 6PM - 11PM<br />
                   Monday: Closed
                 </p>
-              </div>
-              <div className="bg-burgundy-dark/50 p-6 border border-cream/10">
+              </motion.div>
+              <motion.div variants={cardReveal} className="bg-burgundy-dark/50 p-6 border border-cream/10">
                 <Phone className="text-gold mb-3" size={28} />
                 <h4 className="font-serif text-lg text-cream mb-2">Contact Us</h4>
                 <p className="text-cream/70 text-sm">
                   +1 (555) 123-4567<br />
                   info@lamaison.com
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </motion.div>
 
           {/* Reservation Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={fadeInRight}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
           >
-            <form onSubmit={handleSubmit} className="bg-cream p-8 md:p-10 shadow-xl">
+            <motion.form 
+              onSubmit={handleSubmit} 
+              className="bg-cream p-8 md:p-10 shadow-xl"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
               <h3 className="font-serif text-2xl text-charcoal mb-6 text-center">Make a Reservation</h3>
               
-              <div className="space-y-4">
-                <div className="relative">
+              <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                className="space-y-4"
+              >
+                <motion.div variants={fadeInUp} className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
                   <Input
                     type="text"
@@ -95,9 +128,9 @@ const Reservations = () => {
                     className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
                     required
                   />
-                </div>
+                </motion.div>
                 
-                <div className="relative">
+                <motion.div variants={fadeInUp} className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
                   <Input
                     type="email"
@@ -107,9 +140,9 @@ const Reservations = () => {
                     className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
                     required
                   />
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div variants={fadeInUp} className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
                   <Input
                     type="tel"
@@ -119,9 +152,9 @@ const Reservations = () => {
                     className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
                     required
                   />
-                </div>
+                </motion.div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-4">
                   <div className="relative">
                     <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
                     <Input
@@ -142,9 +175,9 @@ const Reservations = () => {
                       required
                     />
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div variants={fadeInUp} className="relative">
                   <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
                   <Input
                     type="number"
@@ -156,13 +189,15 @@ const Reservations = () => {
                     className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
                     required
                   />
-                </div>
+                </motion.div>
 
-                <Button type="submit" variant="burgundy" size="xl" className="w-full mt-4">
-                  Request Reservation
-                </Button>
-              </div>
-            </form>
+                <motion.div variants={fadeInUp}>
+                  <Button type="submit" variant="burgundy" size="xl" className="w-full mt-4">
+                    Request Reservation
+                  </Button>
+                </motion.div>
+              </motion.div>
+            </motion.form>
           </motion.div>
         </div>
       </div>
