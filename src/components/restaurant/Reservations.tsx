@@ -1,0 +1,173 @@
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Calendar, Clock, Users, Phone, Mail, User } from "lucide-react";
+
+const Reservations = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    time: "",
+    guests: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log("Reservation submitted:", formData);
+    alert("Thank you! Your reservation request has been received. We will contact you shortly.");
+  };
+
+  return (
+    <section id="reservations" className="section-padding bg-burgundy relative overflow-hidden" ref={ref}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{ 
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
+        }} />
+      </div>
+
+      <div className="container-custom relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-gold text-sm uppercase tracking-[0.3em] font-sans mb-4 block">
+              Reserve Your Table
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-cream mb-6">
+              Book Your Experience
+            </h2>
+            <div className="w-16 h-[2px] bg-gold mb-8" />
+            <p className="text-cream/80 text-lg leading-relaxed mb-8">
+              We invite you to join us for an unforgettable culinary journey. 
+              Reserve your table and let us create a memorable dining experience 
+              tailored just for you.
+            </p>
+            
+            {/* Info Cards */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="bg-burgundy-dark/50 p-6 border border-cream/10">
+                <Clock className="text-gold mb-3" size={28} />
+                <h4 className="font-serif text-lg text-cream mb-2">Opening Hours</h4>
+                <p className="text-cream/70 text-sm">
+                  Tue - Sun: 6PM - 11PM<br />
+                  Monday: Closed
+                </p>
+              </div>
+              <div className="bg-burgundy-dark/50 p-6 border border-cream/10">
+                <Phone className="text-gold mb-3" size={28} />
+                <h4 className="font-serif text-lg text-cream mb-2">Contact Us</h4>
+                <p className="text-cream/70 text-sm">
+                  +1 (555) 123-4567<br />
+                  info@lamaison.com
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Reservation Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <form onSubmit={handleSubmit} className="bg-cream p-8 md:p-10 shadow-xl">
+              <h3 className="font-serif text-2xl text-charcoal mb-6 text-center">Make a Reservation</h3>
+              
+              <div className="space-y-4">
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
+                  <Input
+                    type="text"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
+                    required
+                  />
+                </div>
+                
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
+                  <Input
+                    type="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
+                    required
+                  />
+                </div>
+
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
+                  <Input
+                    type="tel"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative">
+                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
+                    <Input
+                      type="date"
+                      value={formData.date}
+                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                      className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
+                      required
+                    />
+                  </div>
+                  <div className="relative">
+                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
+                    <Input
+                      type="time"
+                      value={formData.time}
+                      onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                      className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-light" size={18} />
+                  <Input
+                    type="number"
+                    placeholder="Number of Guests"
+                    min="1"
+                    max="20"
+                    value={formData.guests}
+                    onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                    className="pl-10 h-12 bg-cream-dark border-charcoal/20 focus:border-burgundy"
+                    required
+                  />
+                </div>
+
+                <Button type="submit" variant="burgundy" size="xl" className="w-full mt-4">
+                  Request Reservation
+                </Button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Reservations;
