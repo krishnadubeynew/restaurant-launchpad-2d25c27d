@@ -3,7 +3,9 @@ import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Calendar, Clock, Users, Phone, Mail, User } from "lucide-react";
+import { Calendar, Clock, Users, Phone, Mail, User, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const fadeInRight: Variants = {
   hidden: { opacity: 0, x: 60 },
@@ -28,6 +30,7 @@ const cardReveal: Variants = {
 const Reservations = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,10 +40,38 @@ const Reservations = () => {
     guests: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Reservation submitted:", formData);
-    alert("Thank you! Your reservation request has been received. We will contact you shortly.");
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.from("reservations").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        reservation_date: formData.date,
+        reservation_time: formData.time,
+        guests: parseInt(formData.guests),
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Reservation Submitted!",
+        description: "Thank you! We will contact you shortly to confirm your reservation.",
+      });
+
+      setFormData({ name: "", email: "", phone: "", date: "", time: "", guests: "" });
+    } catch (error) {
+      console.error("Reservation error:", error);
+      toast({
+        title: "Submission Failed",
+        description: "Something went wrong. Please try again or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -192,8 +223,15 @@ const Reservations = () => {
                 </motion.div>
 
                 <motion.div variants={fadeInUp}>
-                  <Button type="submit" variant="burgundy" size="xl" className="w-full mt-4">
-                    Request Reservation
+                  <Button type="submit" variant="burgundy" size="xl" className="w-full mt-4" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      "Request Reservation"
+                    )}
                   </Button>
                 </motion.div>
               </motion.div>

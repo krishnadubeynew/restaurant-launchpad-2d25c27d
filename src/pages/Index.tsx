@@ -5,6 +5,7 @@ import Menu from "@/components/restaurant/Menu";
 import Gallery from "@/components/restaurant/Gallery";
 import Reservations from "@/components/restaurant/Reservations";
 import Footer from "@/components/restaurant/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <Gallery />
       <Reservations />
       <Footer />
+      <Toaster />
     </main>
   );
 };
