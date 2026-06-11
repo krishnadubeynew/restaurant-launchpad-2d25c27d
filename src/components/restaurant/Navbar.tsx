@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Menu", href: "#menu" },
-  { name: "Gallery", href: "#gallery" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Menu", href: "/menu" },
+  { name: "Gallery", href: "/gallery" },
 ];
 
 const Navbar = () => {
@@ -35,31 +36,32 @@ const Navbar = () => {
     >
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
-        <a href="#home" className="relative z-10">
+        <Link to="/" className="relative z-10">
           <h1 className="font-serif text-2xl md:text-3xl font-semibold text-cream tracking-widest">
             LA MAISON
           </h1>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.href}
               className="text-cream/90 hover:text-gold text-sm uppercase tracking-[0.2em] transition-colors duration-300 font-sans"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* CTA Button */}
         <div className="hidden lg:block">
           <Button variant="hero" size="lg" asChild>
-            <a href="#reservations">Reserve a Table</a>
+            <a href="/#reservations">Reserve a Table</a>
           </Button>
         </div>
+
 
         {/* Mobile Menu Button */}
         <button
@@ -82,17 +84,17 @@ const Navbar = () => {
             >
               <nav className="flex flex-col items-center gap-6">
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
+                    to={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-cream text-lg uppercase tracking-[0.2em] transition-colors duration-300 hover:text-gold font-sans"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
                 <Button variant="gold" size="lg" className="mt-4" asChild>
-                  <a href="#reservations" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a href="/#reservations" onClick={() => setIsMobileMenuOpen(false)}>
                     Reserve a Table
                   </a>
                 </Button>
