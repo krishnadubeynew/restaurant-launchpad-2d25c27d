@@ -61,28 +61,7 @@ const Navbar = () => {
             <a href="/#reservations">Reserve a Table</a>
           </Button>
         </div>
-          </h1>
-        </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-cream/90 hover:text-gold text-sm uppercase tracking-[0.2em] transition-colors duration-300 font-sans"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* CTA Button */}
-        <div className="hidden lg:block">
-          <Button variant="hero" size="lg" asChild>
-            <a href="#reservations">Reserve a Table</a>
-          </Button>
-        </div>
 
         {/* Mobile Menu Button */}
         <button
