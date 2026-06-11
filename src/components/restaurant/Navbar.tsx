@@ -84,17 +84,17 @@ const Navbar = () => {
             >
               <nav className="flex flex-col items-center gap-6">
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
+                    to={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-cream text-lg uppercase tracking-[0.2em] transition-colors duration-300 hover:text-gold font-sans"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
                 <Button variant="gold" size="lg" className="mt-4" asChild>
-                  <a href="#reservations" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a href="/#reservations" onClick={() => setIsMobileMenuOpen(false)}>
                     Reserve a Table
                   </a>
                 </Button>
