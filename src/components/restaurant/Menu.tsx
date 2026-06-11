@@ -10,6 +10,9 @@ const menuItems = [
       { name: "Burrata & Heirloom Tomatoes", description: "Fresh burrata, seasonal tomatoes, basil oil, aged balsamic", price: "$24" },
       { name: "Seared Foie Gras", description: "Brioche, caramelized pear, port wine reduction", price: "$38" },
       { name: "Oysters Rockefeller", description: "Six oysters, spinach gratin, parmesan, champagne foam", price: "$32" },
+      { name: "Tuna Tartare", description: "Yellowfin tuna, avocado, yuzu ponzu, crispy wonton", price: "$28" },
+      { name: "French Onion Soup", description: "Caramelized onions, beef broth, gruyère crouton", price: "$18" },
+      { name: "Beetroot Carpaccio", description: "Roasted beets, goat cheese, pistachio, micro herbs", price: "$20" },
     ],
   },
   {
@@ -18,6 +21,10 @@ const menuItems = [
       { name: "Wagyu Beef Tenderloin", description: "A5 Wagyu, truffle potato purée, bone marrow jus", price: "$85" },
       { name: "Dover Sole Meunière", description: "Whole fish, brown butter, capers, lemon", price: "$68" },
       { name: "Herb-Crusted Rack of Lamb", description: "Spring lamb, mint pesto, seasonal vegetables", price: "$58" },
+      { name: "Duck à l'Orange", description: "Crispy duck breast, orange-Grand Marnier sauce, wild rice", price: "$52" },
+      { name: "Lobster Thermidor", description: "Maine lobster, cognac cream, gruyère, herb butter", price: "$72" },
+      { name: "Wild Mushroom Risotto", description: "Carnaroli rice, porcini, truffle oil, aged parmesan", price: "$42" },
+      { name: "Pan-Seared Sea Bass", description: "Mediterranean sea bass, saffron beurre blanc, fennel", price: "$56" },
     ],
   },
   {
@@ -26,6 +33,9 @@ const menuItems = [
       { name: "Chocolate Soufflé", description: "Valrhona dark chocolate, vanilla bean ice cream", price: "$18" },
       { name: "Tarte Tatin", description: "Caramelized apple, crème fraîche, calvados", price: "$16" },
       { name: "Cheese Selection", description: "Artisanal cheeses, honeycomb, walnut bread", price: "$22" },
+      { name: "Crème Brûlée", description: "Madagascar vanilla, caramelized sugar crust", price: "$15" },
+      { name: "Tiramisu Classico", description: "Mascarpone, espresso-soaked savoiardi, cocoa", price: "$16" },
+      { name: "Pistachio Panna Cotta", description: "Sicilian pistachio cream, raspberry coulis", price: "$17" },
     ],
   },
 ];
