@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Menu", href: "#menu" },
-  { name: "Gallery", href: "#gallery" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Menu", href: "/menu" },
+  { name: "Gallery", href: "/gallery" },
 ];
 
 const Navbar = () => {
