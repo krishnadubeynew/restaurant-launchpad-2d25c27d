@@ -36,9 +36,31 @@ const Navbar = () => {
     >
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
-        <a href="#home" className="relative z-10">
+        <Link to="/" className="relative z-10">
           <h1 className="font-serif text-2xl md:text-3xl font-semibold text-cream tracking-widest">
             LA MAISON
+          </h1>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-10">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.href}
+              className="text-cream/90 hover:text-gold text-sm uppercase tracking-[0.2em] transition-colors duration-300 font-sans"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+
+        {/* CTA Button */}
+        <div className="hidden lg:block">
+          <Button variant="hero" size="lg" asChild>
+            <a href="/#reservations">Reserve a Table</a>
+          </Button>
+        </div>
           </h1>
         </a>
 
